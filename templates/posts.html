@@ -41,26 +41,28 @@
     <div class="container text-center" style="width: 100%;">
         <div class="row" style="width: 100%;">
             {% for post in posts %}
-            <div class=" card" style="width: 50%;">
-                <br>
-                <h3>{{post.title}}</h3>
+                {% if post.postby == liveuser %}
+                    <div class=" card" style="width: 50%;">
+                        <br>
+                        <h3>{{post.title}}</h3>
 
-                {% if post.author%}
-                    <small>By : {{post.author}} </small>
-                {% else %}
-                    <small>By : N/A </small>
+                        {% if post.author%}
+                            <small>By : {{post.author}} </small>
+                        {% else %}
+                            <small>By : N/A </small>
+                        {% endif %}
+
+                        <p> Posted: {{post.date_posted.date()}}</p>
+
+
+                        <p style="white-space:pre-wrap">{{post.content}}</p>
+                        <div class="d-grid gap-2 col-4 mx-auto">
+                            <a class="btn btn-danger text-center" href="/posts/delete/{{post.id}}">Delete</a>
+                            <a class="btn btn-primary" href="/posts/edit/{{post.id}}">Edit</a>
+                        </div>
+                        <br/>
+                    </div>
                 {% endif %}
-
-                <p> Posted: {{post.date_posted.date()}}</p>
-
-
-                <p style="white-space:pre-wrap">{{post.content}}</p>
-                <div class="d-grid gap-2 col-4 mx-auto">
-                    <a class="btn btn-danger text-center" href="/posts/delete/{{post.id}}">Delete</a>
-                    <a class="btn btn-primary" href="/posts/edit/{{post.id}}">Edit</a>
-                </div>
-                <br/>
-            </div>
             {% endfor %}
         <div>
     </div>

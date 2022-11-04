@@ -1,3 +1,4 @@
+from __future__ import print_function # In python 2.7
 from crypt import methods
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
@@ -7,6 +8,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
 from flask_bcrypt import Bcrypt
+import sys
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
@@ -21,6 +23,9 @@ login_manager.login_view = "login"
 
 @login_manager.user_loader
 def load_user(user_id):
+    global answer 
+    answer = User.query.get(str(user_id))
+    print(answer.username, file=sys.stderr)
     return User.query.get(int(user_id))
 
 class BlogPost(db.Model):
@@ -28,6 +33,7 @@ class BlogPost(db.Model):
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
     author = db.Column(db.String(20), nullable=False, default='N/A')
+    postby = db.Column(db.String(30))
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     
     def __repr__(self):
@@ -109,18 +115,23 @@ def logout():
 @app.route('/posts', methods=['GET', 'POST'])
 @login_required
 def posts():
+    # form = LoginForm()
+    userin = answer.username
+    print("result", file=sys.stderr)
+    print(userin, file=sys.stderr)
     
     if request.method == 'POST':
         post_title = request.form['title']
         post_content = request.form['content']
-        post_author = request.form.get('author')
-        new_post = BlogPost(title=post_title, content=post_content, author=post_author)
+        post_author = request.form.get('author') 
+        post_by = answer.username
+        new_post = BlogPost(title=post_title, content=post_content, postby=post_by, author=post_author)
         db.session.add(new_post)
         db.session.commit()
         return redirect('/posts')
     else:
         all_posts = BlogPost.query.order_by(BlogPost.date_posted).all()
-        return render_template('posts.html', posts = all_posts)
+        return render_template('posts.html', posts = all_posts, liveuser=userin)
  
 @app.route('/posts/delete/<int:id>') 
 def delete(id):
