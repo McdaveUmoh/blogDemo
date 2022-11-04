@@ -38,7 +38,7 @@ class User(db.Model, UserMixin) :
     username = db.Column(db.String(20), nullable=False, unique=True)
     fname = db.Column(db.String(20), nullable=False)
     lname = db.Column(db.String(20), nullable=False)
-    email = db.Column(db.String(32), nullable=False, unique=True)
+    email = db.Column(db.String(32), nullable=False)
     password = db.Column(db.String(80), nullable=False)
 
 class RegisterForm(FlaskForm):
@@ -59,23 +59,6 @@ class LoginForm(FlaskForm):
     username = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
     password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Password"})
     submit = SubmitField("Login")
-
-all_posts = [
-    {
-        "title" : 'Post 1',
-        "content" : 'this is a content for post 1. lorem spectrum magnum iorem ',
-        "author" : 'Mcdave'
-    },
-    {
-        "title" : 'Post 2',
-        "content" : 'this is a content for post 2. lorem spectrum magnum iorem '
-    },
-    {
-        "title" : 'Post 3',
-        "content" : 'this is a content for post 3. lorem spectrum magnum iorem ',
-        "author" : 'Charles'
-    },
-]
 
 @app.route('/')
 def index():
@@ -111,6 +94,11 @@ def contact():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/stories', methods=['GET'])
+def stories():
+    all_posts = BlogPost.query.order_by(BlogPost.date_posted).all()
+    return render_template('stories.html', posts=all_posts)
 
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
@@ -152,14 +140,6 @@ def edit(id):
         return redirect('/posts')
     else:
         return render_template('edit.html', post=post)    
-    
-@app.route('/home/users/<string:name>/posts/<int:id>')
-def hello(name, id):
-    return "hello " + name + " , your ID is: " + str(id) 
-
-@app.route('/onlyget', methods=['POST'])
-def get_req():
-    return 'you can only get this page'
     
 if __name__ == "__main__":
     app.run(debug=True)

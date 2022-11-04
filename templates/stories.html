@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{%block head%}
+<title>Stories</title>
+{% endblock %}
+
+{%block logout%}
+<li class="nav-item"><a href="{{url_for('logout')}}" class="nav-link">Logout</a></li>
+{% endblock %}
+
+
+{%block body%}
+    <hr>
+    <h2> Stories Timeline:</h2>
+    <div class="container text-center" style="width: 100%;">
+        <div class="row" style="width: 100%;">
+            {% for post in posts %}
+            <div class=" card" style="width: 50%;">
+                <br>
+                <h3>{{post.title}}</h3>
+
+                {% if post.author%}
+                    <small>By : {{post.author}} </small>
+                {% else %}
+                    <small>By : N/A </small>
+                {% endif %}
+
+                <p> Posted: {{post.date_posted.date()}}</p>
+
+
+                <p style="white-space:pre-wrap">{{post.content}}</p>
+            </div>
+            {% endfor %}
+        <div>
+    </div>
+{% endblock %} 

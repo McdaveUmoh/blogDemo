@@ -46,6 +46,9 @@
                     <small>By : N/A </small>
                 {% endif %}
 
+                <p> Posted: {{post.date_posted.date()}}</p>
+
+
                 <p style="white-space:pre-wrap">{{post.content}}</p>
                 <div class="d-grid gap-2 col-4 mx-auto">
                     <a class="btn btn-danger text-center" href="/posts/delete/{{post.id}}">Delete</a>
