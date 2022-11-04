@@ -4,6 +4,11 @@
 <title>Posts</title>
 {% endblock %}
 
+{%block makepost%}
+<li class="nav-item"><a href="/posts" class="nav-link">Make a Post</a></li>
+{% endblock %}
+
+
 {%block logout%}
 <li class="nav-item"><a href="{{url_for('logout')}}" class="nav-link">Logout</a></li>
 {% endblock %}
