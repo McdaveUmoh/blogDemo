@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{%block head%}
+<title>Edit Post</title>
+{% endblock %}
+
+{%block body%}
+<h1> Editing Post</h1>
+    
+    <hr>
+    <h2> Edit:</h2>
+    <form action='/posts/edit/{{post.id}}' method='POST'>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
+            <input type="text" class="form-control" name='title' id='title' aria-label="Write Title"  value="{{post.title}}" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group">
+            <span class="input-group-text">Post: </span>
+            <textarea class="form-control" name='content' id='content' aria-label="Write Post Here:">{{post.content}}</textarea>
+        </div><br>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Author</span>
+            <input type="text" class="form-control" name='author' id='author' aria-label="Write Title" value="{{post.author}}" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit">Save</button>
+        </div>
+    </form>
+    <hr>
+{% endblock %} 

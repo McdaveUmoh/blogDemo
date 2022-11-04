@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{%block head%}
+<title>Contact Page</title>
+{% endblock %}
+
+{%block body%}
+<br>
+    <h2> You can contact us here</h2>
+    <hr>
+    <form>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label"> write your message here</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea> <br>
+            <button type="button" class="btn btn-primary">send</button>
+        </div>
+    </form>
+{% endblock %} 

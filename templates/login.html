@@ -1,0 +1,40 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="../static/css/main.css" rel="stylesheet">
+  </head>
+  <body class="text-center centralize">
+    <main class="form-signin w-50 m-auto">
+      <form method="POST" action="">
+        {{form.hidden_tag()}}
+        <img class="mb-4" src="https://media-exp1.licdn.com/dms/image/C4E0BAQH25RnaRWwPlQ/company-logo_200_200/0/1633989073690?e=2147483647&v=beta&t=Q_Xs386qIfen3Wq0-UE1cq2xkTTBcGFPGJxBgEqbgkc" alt="" width="72" height="57">
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    
+        <div class="form-floating ">
+          {{form.username}}
+        </div><br>
+        <div class="form-floating">
+          {{form.password}}
+        </div>
+    
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        {{form.submit}}<br>
+        <a href="{{url_for('register')}}">Don't have an account? Sign Up.</a>
+        <br><br>
+        <a href="{{url_for('index')}}">Go back to the Home page</a><br>
+        <br>
+        <p class="mt-5 mb-3 text-muted">&copy; AltSchool Africa</p>
+      </form>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  </body>
+</html>

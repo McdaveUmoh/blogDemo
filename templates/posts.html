@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{%block head%}
+<title>Posts</title>
+{% endblock %}
+
+{%block logout%}
+<li class="nav-item"><a href="{{url_for('logout')}}" class="nav-link">Logout</a></li>
+{% endblock %}
+
+
+{%block body%}
+<br>
+<h1>All Posts</h1>
+    
+    <hr>
+    <h2> Create New Blog Post:</h2>
+    <form action='/posts' method='POST'>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
+            <input type="text" class="form-control" name='title' id='title' aria-label="Write Title"  aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group">
+            <span class="input-group-text">Post: </span>
+            <textarea class="form-control" name='content' id='content' aria-label="Write Post Here:"></textarea>
+        </div><br>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Author</span>
+            <input type="text" class="form-control" name='author' id='author' aria-label="Write Title"  aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit">Post Blog</button>
+        </div>
+    </form>
+    <hr>
+    <div class="container text-center" style="width: 100%;">
+        <div class="row" style="width: 100%;">
+            {% for post in posts %}
+            <div class=" card" style="width: 50%;">
+                <br>
+                <h3>{{post.title}}</h3>
+
+                {% if post.author%}
+                    <small>By : {{post.author}} </small>
+                {% else %}
+                    <small>By : N/A </small>
+                {% endif %}
+
+                <p style="white-space:pre-wrap">{{post.content}}</p>
+                <div class="d-grid gap-2 col-4 mx-auto">
+                    <a class="btn btn-danger text-center" href="/posts/delete/{{post.id}}">Delete</a>
+                    <a class="btn btn-primary" href="/posts/edit/{{post.id}}">Edit</a>
+                </div>
+                <br/>
+            </div>
+            {% endfor %}
+        <div>
+    </div>
+{% endblock %} 
