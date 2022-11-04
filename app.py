@@ -25,7 +25,7 @@ login_manager.login_view = "login"
 def load_user(user_id):
     global answer 
     answer = User.query.get(str(user_id))
-    print(answer.username, file=sys.stderr)
+    # print(answer.username, file=sys.stderr)
     return User.query.get(int(user_id))
 
 class BlogPost(db.Model):
@@ -117,8 +117,8 @@ def logout():
 def posts():
     # form = LoginForm()
     userin = answer.username
-    print("result", file=sys.stderr)
-    print(userin, file=sys.stderr)
+    # print("result", file=sys.stderr)
+    # print(userin, file=sys.stderr)
     
     if request.method == 'POST':
         post_title = request.form['title']
