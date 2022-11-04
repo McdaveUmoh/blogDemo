@@ -36,10 +36,16 @@ class BlogPost(db.Model):
 class User(db.Model, UserMixin) :
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), nullable=False, unique=True)
+    fname = db.Column(db.String(20), nullable=False)
+    lname = db.Column(db.String(20), nullable=False)
+    email = db.Column(db.String(32), nullable=False, unique=True)
     password = db.Column(db.String(80), nullable=False)
 
 class RegisterForm(FlaskForm):
     username = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
+    fname = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "First name"})
+    lname = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Last Name"})
+    email = StringField(validators=[InputRequired(), Length(min=4, max=30)], render_kw={"placeholder": "Email"})
     password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Password"})
     submit = SubmitField("Register")
     
@@ -92,7 +98,7 @@ def register():
     
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data)
-        new_user = User(username=form.username.data, password=hashed_password)
+        new_user = User(username=form.username.data, fname=form.fname.data, lname=form.lname.data, email=form.email.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
         return redirect(url_for('login'))
