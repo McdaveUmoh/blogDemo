@@ -6,3 +6,8 @@ body {
     padding: 50px;
     margin: 50px;
 }
+
+.pointer {
+    cursor: pointer;
+    width: 50px;
+}
